@@ -1,0 +1,16 @@
+{
+  "accepted": true,
+  "python_source_files": 14,
+  "scientific_removable_assert_nodes": 0,
+  "pytest_assert_nodes": 7,
+  "dynamic_evaluation_calls": 0,
+  "forbidden_network_or_process_imports": 0,
+  "private_absolute_paths": 0,
+  "unresolved_todo_markers": 0,
+  "producer_independent_paths": [
+    "src/check.py",
+    "src/verify_holdout.py",
+    "report.py"
+  ],
+  "scope": "static source audit; not a security certification or mathematical proof"
+}

@@ -1,0 +1,196 @@
+{
+  "accepted": true,
+  "targeted_mutation_count": 35,
+  "targeted_mutations_rejected": 35,
+  "symmetric_matrix_cases": 729,
+  "affine_gauge_cases": 3,
+  "coordinate_correlation_cases": 519,
+  "coordinate_correlation_recoveries": 483,
+  "kernel_basis_congruence_cases": 12,
+  "rank_deficient_width_five_witnesses": 2,
+  "descent_bound_cases": 168,
+  "uniform_nested_pairs": 3208,
+  "uniform_recovery_implications": 382,
+  "fixed_scene_nested_pairs": 12832,
+  "fixed_scene_recovery_implications": 8485,
+  "repeated_view_cases": 16,
+  "width_monotonicity_witnesses": 2,
+  "normal_span_boundary_checked": true,
+  "mutations": [
+    {
+      "mutation": "repeated-data-only-fixture",
+      "rejected": true,
+      "reason": "data-only fixture coverage and order"
+    },
+    {
+      "mutation": "reordered-data-only-fixtures",
+      "rejected": true,
+      "reason": "data-only fixture coverage and order"
+    },
+    {
+      "mutation": "wrong-excluded-normal-rank",
+      "rejected": true,
+      "reason": "excluded normal rank field"
+    },
+    {
+      "mutation": "missing-scene",
+      "rejected": true,
+      "reason": "scene coverage incomplete"
+    },
+    {
+      "mutation": "wrong-scene-verdict",
+      "rejected": true,
+      "reason": "scene recovery verdict"
+    },
+    {
+      "mutation": "wrong-scene-form",
+      "rejected": true,
+      "reason": "scene quadratic form"
+    },
+    {
+      "mutation": "wrong-scene-adjugate",
+      "rejected": true,
+      "reason": "scene negative adjugate"
+    },
+    {
+      "mutation": "wrong-scene-gap",
+      "rejected": true,
+      "reason": "scene improvement gap"
+    },
+    {
+      "mutation": "wrong-affine-covariance",
+      "rejected": true,
+      "reason": "affine effective covariance"
+    },
+    {
+      "mutation": "wrong-data-only-verdict",
+      "rejected": true,
+      "reason": "data-only recovery verdict"
+    },
+    {
+      "mutation": "wrong-data-only-finite-gap",
+      "rejected": true,
+      "reason": "data-only witness objective gap"
+    },
+    {
+      "mutation": "missing-subset",
+      "rejected": true,
+      "reason": "incomplete subset coverage"
+    },
+    {
+      "mutation": "duplicate-subset",
+      "rejected": true,
+      "reason": "missing/duplicate/unexpected subset"
+    },
+    {
+      "mutation": "wrong-normal-rank",
+      "rejected": true,
+      "reason": "normal rank field"
+    },
+    {
+      "mutation": "wrong-evaluation-rank",
+      "rejected": true,
+      "reason": "evaluation rank field"
+    },
+    {
+      "mutation": "missing-kernel-vector",
+      "rejected": true,
+      "reason": "kernel dimension"
+    },
+    {
+      "mutation": "false-safe-label",
+      "rejected": true,
+      "reason": "determinant polynomial classification"
+    },
+    {
+      "mutation": "false-failure-label",
+      "rejected": true,
+      "reason": "determinant polynomial classification"
+    },
+    {
+      "mutation": "omit-span-exclusion",
+      "rejected": true,
+      "reason": "missing normal-span exclusion"
+    },
+    {
+      "mutation": "singular-failure-witness",
+      "rejected": true,
+      "reason": "invertible witness"
+    },
+    {
+      "mutation": "wrong-adjugate-sign",
+      "rejected": true,
+      "reason": "negative adjugate"
+    },
+    {
+      "mutation": "missing-family-point",
+      "rejected": true,
+      "reason": "oracle grid completeness/order"
+    },
+    {
+      "mutation": "wrong-minimum-energy",
+      "rejected": true,
+      "reason": "minimum energy"
+    },
+    {
+      "mutation": "wrong-metric",
+      "rejected": true,
+      "reason": "slack positivity/rank"
+    },
+    {
+      "mutation": "negative-dual",
+      "rejected": true,
+      "reason": "dual positivity"
+    },
+    {
+      "mutation": "changed-observation",
+      "rejected": true,
+      "reason": "observations"
+    },
+    {
+      "mutation": "changed-point",
+      "rejected": true,
+      "reason": "point centering/rank"
+    },
+    {
+      "mutation": "rank-three-impostor",
+      "rejected": true,
+      "reason": "slack positivity/rank"
+    },
+    {
+      "mutation": "wrong-gram-error",
+      "rejected": true,
+      "reason": "Gram error"
+    },
+    {
+      "mutation": "wrong-strict-gap",
+      "rejected": true,
+      "reason": "witness gap"
+    },
+    {
+      "mutation": "too-narrow-failure-width",
+      "rejected": true,
+      "reason": "slack positivity/rank"
+    },
+    {
+      "mutation": "wrong-covariance",
+      "rejected": true,
+      "reason": "covariance"
+    },
+    {
+      "mutation": "wrong-factorization",
+      "rejected": true,
+      "reason": "affine factorization"
+    },
+    {
+      "mutation": "wrong-baseline-metric",
+      "rejected": true,
+      "reason": "metric upgrade equation"
+    },
+    {
+      "mutation": "wrong-recovered-gram",
+      "rejected": true,
+      "reason": "recovered geometry"
+    }
+  ]
+}

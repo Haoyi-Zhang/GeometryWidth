@@ -1,0 +1,65 @@
+{
+  "scene_check_count": 868,
+  "scene_recovers": 703,
+  "scene_failure_witnesses": 165,
+  "scene_counts_by_fixture": [
+    {
+      "fixture_index": 0,
+      "recovers": 199,
+      "failures": 18
+    },
+    {
+      "fixture_index": 1,
+      "recovers": 140,
+      "failures": 77
+    },
+    {
+      "fixture_index": 2,
+      "recovers": 189,
+      "failures": 28
+    },
+    {
+      "fixture_index": 3,
+      "recovers": 175,
+      "failures": 42
+    }
+  ],
+  "subset_count": 219,
+  "subset_counts": {
+    "3": {
+      "failure_possible_width_four": 54,
+      "outside_linear_span_assumption": 2
+    },
+    "4": {
+      "failure_possible_width_four": 60,
+      "safe_width_four": 10
+    },
+    "5": {
+      "failure_possible_width_four": 36,
+      "safe_width_four": 20
+    },
+    "6": {
+      "safe_width_four": 28
+    },
+    "7": {
+      "safe_width_four": 8
+    },
+    "8": {
+      "safe_width_four": 1
+    }
+  },
+  "oracle_count": 49,
+  "negative_case_count": 3,
+  "data_only_count": 4,
+  "u_one": {
+    "u": "1",
+    "true_energy": "72",
+    "minimum_energy": "200/3",
+    "gap": "16/3",
+    "relative_gram_error_squared": "4/129"
+  },
+  "special_four_classification": "safe_width_four",
+  "special_five_classification": "safe_width_four",
+  "cap_six_classification": "safe_width_four",
+  "cap_six_width_five_gap": "82605209964/1164590597677"
+}

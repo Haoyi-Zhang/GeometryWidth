@@ -1,0 +1,65 @@
+{
+  "accepted": true,
+  "arrangements": 160,
+  "fixed_scene_cases": 1600,
+  "fixed_scene_recoveries": 1165,
+  "fixed_scene_failures": 435,
+  "wide_strict_witnesses": 40,
+  "counts_by_view": {
+    "3": {
+      "arrangements": 27,
+      "scene_cases": 270,
+      "recovers": 12,
+      "fails": 258
+    },
+    "4": {
+      "arrangements": 27,
+      "scene_cases": 270,
+      "recovers": 122,
+      "fails": 148
+    },
+    "5": {
+      "arrangements": 27,
+      "scene_cases": 270,
+      "recovers": 241,
+      "fails": 29
+    },
+    "6": {
+      "arrangements": 27,
+      "scene_cases": 270,
+      "recovers": 270,
+      "fails": 0
+    },
+    "7": {
+      "arrangements": 26,
+      "scene_cases": 260,
+      "recovers": 260,
+      "fails": 0
+    },
+    "8": {
+      "arrangements": 26,
+      "scene_cases": 260,
+      "recovers": 260,
+      "fails": 0
+    }
+  },
+  "scope": "independent exact verification of a frozen generated stress set; not statistical generalization",
+  "mutations": [
+    {
+      "mutation": "flip-holdout-verdict",
+      "rejected": true,
+      "reason": "holdout verdict"
+    },
+    {
+      "mutation": "drop-holdout-arrangement",
+      "rejected": true,
+      "reason": "holdout arrangement coverage"
+    },
+    {
+      "mutation": "zero-wide-gap",
+      "rejected": true,
+      "reason": "witness gap"
+    }
+  ],
+  "targeted_mutations_rejected": 3
+}

@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "workers": 1,
+  "five_camera_classification": {
+    "normal_rank": 3,
+    "evaluation_rank": 5,
+    "kernel_basis": [
+      [
+        [
+          "0",
+          "-1/3",
+          "-1/3"
+        ],
+        [
+          "-1/3",
+          "0",
+          "1"
+        ],
+        [
+          "-1/3",
+          "1",
+          "0"
+        ]
+      ]
+    ],
+    "determinant_coefficients": {
+      "0,0,0": "2/9"
+    },
+    "classification": "failure_possible_width_four",
+    "invertible_witness": [
+      [
+        "0",
+        "-1/3",
+        "-1/3"
+      ],
+      [
+        "-1/3",
+        "0",
+        "1"
+      ],
+      [
+        "-1/3",
+        "1",
+        "0"
+      ]
+    ],
+    "negative_direction": [
+      [
+        "1",
+        "1/3",
+        "1/3"
+      ],
+      [
+        "1/3",
+        "1/9",
+        "-1/9"
+      ],
+      [
+        "1/3",
+        "-1/9",
+        "1/9"
+      ]
+    ]
+  },
+  "six_camera_classification": {
+    "normal_rank": 3,
+    "evaluation_rank": 6,
+    "kernel_basis": [],
+    "determinant_coefficients": {},
+    "classification": "safe_width_four"
+  },
+  "oracle": {
+    "u": "1",
+    "metric": [
+      [
+        "4/5",
+        "1/5",
+        "1/5"
+      ],
+      [
+        "1/5",
+        "4/5",
+        "1/5"
+      ],
+      [
+        "1/5",
+        "1/5",
+        "4/5"
+      ]
+    ],
+    "true_energy": "72",
+    "minimum_energy": "200/3",
+    "gap": "16/3"
+  },
+  "wall_seconds": 0.0025052659998436866,
+  "cpu_seconds": 0.0025040619999999736,
+  "peak_rss_kib": 92712
+}

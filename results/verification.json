@@ -1,0 +1,11 @@
+{
+  "accepted": true,
+  "scene_check_count": 868,
+  "scene_recovers": 703,
+  "scene_failure_witnesses": 165,
+  "subset_count": 219,
+  "oracle_count": 49,
+  "negative_cases": 3,
+  "data_only_cases": 4,
+  "verification": "exact rational finite certificates; not a mechanized general proof"
+}

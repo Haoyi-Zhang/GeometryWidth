@@ -1,0 +1,19 @@
+{
+  "accepted": true,
+  "reference_count": 55,
+  "metadata_matches_after_correction": 55,
+  "publication_status_counts": {
+    "peer_reviewed_conference": 20,
+    "peer_reviewed_journal": 31,
+    "preprint_only": 3,
+    "scholarly_book": 1
+  },
+  "preprint_only_count": 3,
+  "peer_reviewed_or_book_count": 52,
+  "metadata_corrections": {
+    "goldberg2008normalization": "JMLR article number 63 restored",
+    "roeder2021linear": "author corrected from Diederik P. Kingma to Durk Kingma from official PMLR record",
+    "squires2023linear": "middle initial restored for Salil S. Bhate from official PMLR record"
+  },
+  "scope": "retained live primary/persistent-record audit; not exhaustive novelty or priority review"
+}

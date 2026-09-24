@@ -1,0 +1,80 @@
+{
+  "accepted": true,
+  "commands": [
+    "reproduce",
+    "report",
+    "check",
+    "tests",
+    "pilot",
+    "inspect",
+    "holdout",
+    "static",
+    "references",
+    "external_refs",
+    "pytest"
+  ],
+  "date": "2026-09-21",
+  "deterministic_comparisons": [
+    {
+      "file": "certificates.json",
+      "status": "identical"
+    },
+    {
+      "file": "summary.json",
+      "status": "identical"
+    },
+    {
+      "file": "oracle.csv",
+      "status": "identical"
+    },
+    {
+      "file": "oracle_plot.csv",
+      "status": "identical"
+    },
+    {
+      "file": "tests.json",
+      "status": "identical"
+    },
+    {
+      "file": "verification.json",
+      "status": "identical"
+    },
+    {
+      "file": "reference-audit.json",
+      "status": "identical"
+    },
+    {
+      "file": "reference-external-audit.json",
+      "status": "identical"
+    },
+    {
+      "file": "holdout-stress.json",
+      "status": "identical"
+    },
+    {
+      "file": "holdout-verification.json",
+      "status": "identical"
+    },
+    {
+      "file": "final-review-audit.json",
+      "status": "identical"
+    },
+    {
+      "file": "report.json",
+      "status": "identical"
+    },
+    {
+      "file": "observations-audit.json",
+      "status": "identical"
+    }
+  ],
+  "deterministic_files_compared": 13,
+  "deterministic_files_identical": 13,
+  "maximum_peak_rss_kib": 155148,
+  "maximum_swaps": 0,
+  "pytest_is_optional": true,
+  "scope": "local clean-archive reproducibility and byte comparison; not a performance benchmark, proof, or statistical validation",
+  "source": "clean extraction of the candidate standalone ZIP immediately before final documentation inclusion",
+  "summed_wall_seconds": 65.18,
+  "total_cpu_seconds": 68.27
+}
