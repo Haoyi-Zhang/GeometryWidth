@@ -4,6 +4,7 @@
   "fixed_scene_cases": 1600,
   "fixed_scene_recoveries": 1165,
   "fixed_scene_failures": 435,
+  "width_four_parent_bound_failures": 435,
   "wide_strict_witnesses": 40,
   "counts_by_view": {
     "3": {
@@ -43,7 +44,7 @@
       "fails": 0
     }
   },
-  "scope": "independent exact verification of a frozen generated stress set; not statistical generalization",
+  "scope": "separate exact verification path for a frozen generated stress set; not statistical generalization",
   "mutations": [
     {
       "mutation": "flip-holdout-verdict",
@@ -59,7 +60,22 @@
       "mutation": "zero-wide-gap",
       "rejected": true,
       "reason": "witness gap"
+    },
+    {
+      "mutation": "drop-synchronized-failure-block",
+      "rejected": true,
+      "reason": "holdout failure camera/normal/Y block coverage"
+    },
+    {
+      "mutation": "cross-arrangement-failure-blocks",
+      "rejected": true,
+      "reason": "holdout failure normals must match parent arrangement"
+    },
+    {
+      "mutation": "width-five-fixed-scene-witness",
+      "rejected": true,
+      "reason": "holdout failure width must be exactly four"
     }
   ],
-  "targeted_mutations_rejected": 3
+  "targeted_mutations_rejected": 6
 }

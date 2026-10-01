@@ -26,6 +26,74 @@ def require(condition, message):
         raise ExactTestFailure(message)
 
 
+DATA_ONLY_DOMAIN_ERROR = (
+    'data-only domain requires raw normal directions of exact rank three'
+)
+
+
+def coplanar_data_only_record(payload, include_complete_kernel):
+    """Construct the retained rank-two boundary in the observation-only gauge."""
+    boundary = next(case for case in payload['negative_cases']
+                    if case['id'] == 'coplanar-normal-boundary')
+    y = exact.mat([row for block in boundary['Y'] for row in block])
+    columns = [0, 2, 6]
+    rows = [0, 1, 2]
+    f = [[row[j] for j in columns] for row in y]
+    w = exact.mul(exact.inv([f[i] for i in rows]), [y[i] for i in rows])
+    s0 = exact.eye(3)
+    raw_normals = exact.mat([
+        [1, 0, 0],
+        ['4/5', '3/5', 0],
+        ['4/5', '-3/5', 0],
+    ])
+    complete_kernel = [
+        exact.mat([[0, 0, 1], [0, 0, 0], [1, 0, 0]]),
+        exact.mat([[0, 0, 0], [0, 0, 1], [0, 1, 0]]),
+        exact.mat([[0, 0, 0], [0, 0, 0], [0, 0, 1]]),
+    ]
+    effective_covariance = exact.mul(w, exact.trn(w))
+    full_form = exact.recovery_form(effective_covariance, complete_kernel)
+    require(columns == [0, 2, 6] and rows == [0, 1, 2],
+            'coplanar boundary gauge selection')
+    require(exact.mul(f, w) == y and exact.rank(f) == exact.rank(w) == 3,
+            'coplanar boundary affine factorization')
+    require(all(exact.mul(block, exact.trn(block)) == exact.eye(2)
+                for block in [f[i:i + 2] for i in range(0, len(f), 2)]),
+            'coplanar boundary baseline metric')
+    require(effective_covariance == exact.mat([[4, 0, 0], [0, 2, 0], [0, 0, 2]]),
+            'coplanar boundary effective covariance')
+    require(exact.rank(raw_normals) == 2,
+            'coplanar boundary normal rank')
+    require(full_form == exact.mat([[2, 0, 0], [0, 4, 0], [0, 0, 0]])
+            and exact.psd(full_form),
+            'coplanar boundary apparent recovery form')
+    require(F(boundary['true_energy']) == 8
+            and F(boundary['witness_energy']) == F(2014, 255)
+            and F(boundary['strict_gap']) == F(26, 255),
+            'coplanar boundary retained strict failure')
+    basis = complete_kernel if include_complete_kernel else []
+    form = full_form if include_complete_kernel else []
+    record = {
+        'Y': y,
+        'selected_columns': columns,
+        'selected_rows': rows,
+        'F': f,
+        'W': w,
+        'baseline_metric': s0,
+        'recovered_gram': exact.mul(exact.trn(w), w),
+        'raw_null_directions': raw_normals,
+        'width_four_classification': {
+            'normal_rank': 2,
+            'classification': 'outside_linear_span_assumption',
+            'kernel_basis': basis,
+        },
+        'effective_covariance': effective_covariance,
+        'recovery_form': form,
+        'scene_recovers_width_four': True,
+    }
+    return exact.encode(record)
+
+
 def run_tests(payload):
     outcomes = []
     bad_index = next(i for i,r in enumerate(payload['subset_decisions'])
@@ -83,6 +151,30 @@ def run_tests(payload):
             outcomes.append({'mutation':name, 'rejected':True, 'reason':str(exc)})
         else:
             raise AssertionError('accepted mutation: '+name)
+
+    # Regression for an observation-only domain gap.  classify_certificate
+    # correctly labels the retained coplanar arrangement as outside the theorem,
+    # but an earlier checker continued from that early return and could accept
+    # either the complete three-dimensional kernel or an empty-kernel impostor
+    # as a recovery.  Both variants must now stop at the explicit rank-three
+    # domain gate before any recovery form is interpreted.
+    data_only_domain_rejections = []
+    for name, include_complete_kernel in [
+            ('coplanar-complete-kernel', True),
+            ('coplanar-empty-kernel', False)]:
+        record = coplanar_data_only_record(payload, include_complete_kernel)
+        try:
+            check.check_data_only(record)
+        except check.CertificateError as exc:
+            require(str(exc) == DATA_ONLY_DOMAIN_ERROR,
+                    'coplanar data-only variant did not raise explicit domain error')
+            data_only_domain_rejections.append({
+                'variant': name,
+                'rejected': True,
+                'reason': str(exc),
+            })
+        else:
+            raise AssertionError('accepted out-of-domain observation certificate: ' + name)
     # Exhaustive small symmetric matrices: producer elimination versus verifier
     # principal-minor test. This is algorithmic diversity, not external review.
     psd_cases = 0
@@ -307,6 +399,15 @@ def run_tests(payload):
     require(not polynomial(basis) and exact.rank(boundary) == 2, 'exact test invariant failed near original line 189')
     return {'accepted':True, 'targeted_mutation_count':len(outcomes),
             'targeted_mutations_rejected':sum(r['rejected'] for r in outcomes),
+            'data_only_domain_rejection_count':len(data_only_domain_rejections),
+            'data_only_domain_rejections':data_only_domain_rejections,
+            'coplanar_boundary_conflict':{
+                'effective_covariance':[['4','0','0'],['0','2','0'],['0','0','2']],
+                'apparent_recovery_form':[['2','0','0'],['0','4','0'],['0','0','0']],
+                'retained_true_energy':'8',
+                'retained_witness_energy':'2014/255',
+                'retained_strict_gap':'26/255',
+            },
             'symmetric_matrix_cases':psd_cases, 'affine_gauge_cases':gauge_cases,
             'coordinate_correlation_cases':correlation_cases,
             'coordinate_correlation_recoveries':correlation_recoveries,

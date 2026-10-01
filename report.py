@@ -91,6 +91,7 @@ def audit(directory):
     expected_test_values = {
         "targeted_mutation_count": 35,
         "targeted_mutations_rejected": 35,
+        "data_only_domain_rejection_count": 2,
         "symmetric_matrix_cases": 729,
         "affine_gauge_cases": 3,
         "coordinate_correlation_cases": 519,
@@ -110,6 +111,27 @@ def audit(directory):
         require(tests[key] == expected, f"finite-test count mismatch: {key}")
     require(len(tests["mutations"]) == 35 and all(row["rejected"] for row in tests["mutations"]),
             "targeted mutation details mismatch")
+    expected_domain_rejections = [
+        {
+            "variant": "coplanar-complete-kernel",
+            "rejected": True,
+            "reason": "data-only domain requires raw normal directions of exact rank three",
+        },
+        {
+            "variant": "coplanar-empty-kernel",
+            "rejected": True,
+            "reason": "data-only domain requires raw normal directions of exact rank three",
+        },
+    ]
+    require(tests["data_only_domain_rejections"] == expected_domain_rejections,
+            "data-only domain rejection details mismatch")
+    require(tests["coplanar_boundary_conflict"] == {
+        "effective_covariance": [["4", "0", "0"], ["0", "2", "0"], ["0", "0", "2"]],
+        "apparent_recovery_form": [["2", "0", "0"], ["0", "4", "0"], ["0", "0", "0"]],
+        "retained_true_energy": "8",
+        "retained_witness_energy": "2014/255",
+        "retained_strict_gap": "26/255",
+    }, "coplanar observation-domain regression mismatch")
     require(tests["normal_span_boundary_checked"], "normal-span boundary was not checked")
 
     reference_audit = validate_references(ROOT / "reference_audit.csv")
@@ -126,8 +148,33 @@ def audit(directory):
     retained_holdout = json.loads((directory / "holdout-verification.json").read_text())
     for key, value in holdout.items():
         require(retained_holdout.get(key) == value, f"holdout result mismatch: {key}")
-    require(retained_holdout.get("targeted_mutations_rejected") == 3,
+    require(holdout["width_four_parent_bound_failures"] == 435,
+            "holdout parent-bound failure count mismatch")
+    require(retained_holdout.get("targeted_mutations_rejected") == 6,
             "holdout mutation count mismatch")
+    expected_holdout_mutations = [
+        "flip-holdout-verdict",
+        "drop-holdout-arrangement",
+        "zero-wide-gap",
+        "drop-synchronized-failure-block",
+        "cross-arrangement-failure-blocks",
+        "width-five-fixed-scene-witness",
+    ]
+    require([row["mutation"] for row in retained_holdout.get("mutations", [])]
+            == expected_holdout_mutations
+            and all(row["rejected"] for row in retained_holdout["mutations"]),
+            "holdout mutation details mismatch")
+    holdout_reasons = {row["mutation"]: row["reason"]
+                       for row in retained_holdout["mutations"]}
+    require(holdout_reasons["drop-synchronized-failure-block"]
+            == "holdout failure camera/normal/Y block coverage",
+            "holdout synchronized-block mutation did not reach explicit binding gate")
+    require(holdout_reasons["cross-arrangement-failure-blocks"]
+            == "holdout failure normals must match parent arrangement",
+            "holdout cross-arrangement mutation did not reach explicit parent gate")
+    require(holdout_reasons["width-five-fixed-scene-witness"]
+            == "holdout failure width must be exactly four",
+            "holdout width mutation did not reach explicit width gate")
 
     affine = payload["data_only_certificates"][0]
     basis = [matrix(item) for item in affine["width_four_classification"]["kernel_basis"]]
@@ -171,8 +218,14 @@ def audit(directory):
         "holdout_fixed_scene_cases": holdout["fixed_scene_cases"],
         "holdout_fixed_scene_recoveries": holdout["fixed_scene_recoveries"],
         "holdout_fixed_scene_failures": holdout["fixed_scene_failures"],
+        "holdout_width_four_parent_bound_failures": holdout["width_four_parent_bound_failures"],
         "holdout_wide_strict_witnesses": holdout["wide_strict_witnesses"],
         "holdout_targeted_mutations_rejected": retained_holdout["targeted_mutations_rejected"],
+        "total_targeted_adversarial_variants_rejected": (
+            expected_test_values["targeted_mutations_rejected"]
+            + expected_test_values["data_only_domain_rejection_count"]
+            + retained_holdout["targeted_mutations_rejected"]
+        ),
         "max_serialized_numerator_bits": max(x for x, _ in bits),
         "max_serialized_denominator_bits": max(y for _, y in bits),
         "serialized_rational_count": len(bits),

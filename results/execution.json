@@ -5,52 +5,52 @@
   "stages": [
     {
       "name": "generate",
-      "wall_seconds": 0.5169907070001045,
-      "cpu_seconds": 0.5162515599999999
+      "wall_seconds": 0.5697161599999845,
+      "cpu_seconds": 0.569746456
     },
     {
       "name": "independent-check",
-      "wall_seconds": 0.9411621900001137,
-      "cpu_seconds": 0.940297726
+      "wall_seconds": 1.1144588800000292,
+      "cpu_seconds": 1.114476753
     },
     {
       "name": "mutations-and-algebra",
-      "wall_seconds": 13.040215781999905,
-      "cpu_seconds": 13.029853872
+      "wall_seconds": 15.21239218400001,
+      "cpu_seconds": 15.211535216
     },
     {
       "name": "reference-audit",
-      "wall_seconds": 0.0011225480000121024,
-      "cpu_seconds": 0.0011233589999992688
+      "wall_seconds": 0.0012702340000032564,
+      "cpu_seconds": 0.0012714359999996816
     },
     {
       "name": "external-reference-audit",
-      "wall_seconds": 0.00030242399998314795,
-      "cpu_seconds": 0.00030261999999936506
+      "wall_seconds": 0.0003590170000506987,
+      "cpu_seconds": 0.00035929499999909353
     },
     {
       "name": "holdout-generate",
-      "wall_seconds": 1.2184025149999798,
-      "cpu_seconds": 1.2176495539999994
+      "wall_seconds": 1.5012526440000329,
+      "cpu_seconds": 1.501290356000002
     },
     {
       "name": "holdout-independent-check",
-      "wall_seconds": 1.3116077710001264,
-      "cpu_seconds": 1.3105657619999995
+      "wall_seconds": 1.8915854929999796,
+      "cpu_seconds": 1.8916244119999988
     },
     {
       "name": "holdout-mutations",
-      "wall_seconds": 1.454124919999913,
-      "cpu_seconds": 1.4526662080000001
+      "wall_seconds": 2.289887238999995,
+      "cpu_seconds": 2.289736353000002
     },
     {
       "name": "static-source-audit",
-      "wall_seconds": 0.059441218999836565,
-      "cpu_seconds": 0.05944291100000143
+      "wall_seconds": 0.07727413000009165,
+      "cpu_seconds": 0.07727218899999855
     }
   ],
-  "wall_seconds": 18.573817667999947,
-  "cpu_seconds": 18.558420144,
-  "peak_rss_kib": 124956,
+  "wall_seconds": 22.684224593999943,
+  "cpu_seconds": 22.68322306,
+  "peak_rss_kib": 138724,
   "timing_scope": "this reproduction command, not a general proof or performance benchmark"
 }

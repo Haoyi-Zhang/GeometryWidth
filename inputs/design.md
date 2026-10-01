@@ -21,16 +21,16 @@ The exact four-point oracle uses `X(u)=(I+uJ)Z0` at the 49 prescribed values `u=
 
 ## Frozen stress campaign
 
-`holdout_stress.py` uses the fixed integer seed `20260921` to construct a second rational design that does not reuse the structured camera pool or four structured scenes. The generator freezes:
+`holdout_stress.py` uses the fixed integer seed `20260921` to construct a second rational input design that does not reuse the structured camera pool or four structured scenes. The input generator does reuse the shared exact-arithmetic routines in `src/exact.py` and the finite-witness constructor in `src/produce.py`; this campaign separates fixtures and the fixed seed, not producer implementation logic. The generator freezes:
 
 - 160 spanning camera arrangements distributed across three through eight views;
 - ten new centered full-rank rational scenes for each arrangement;
 - 1,600 width-four fixed-scene decisions in total;
 - 40 additional width-five strict-witness instances.
 
-All generated cases are retained. No case is retried or discarded based on its recovery outcome. `src/verify_holdout.py` independently reconstructs the evaluation kernels, quadratic forms, verdicts, finite witnesses, and wide-model gaps. Three serialized mutations are required to be rejected.
+All generated cases are retained. No case is retried or discarded based on its recovery outcome. The serialized file retains every normal, camera, observation block, scene, covariance, metric, and objective field needed for verification. `src/verify_holdout.py` follows a producer-independent arithmetic path: it reconstructs the evaluation kernels, quadratic forms, verdicts, finite witnesses, and wide-model gaps; for every width-four failure it also requires exact width four, complete camera/normal/observation coverage of the parent arrangement, equality of the witness normals with the parent normals, calibrated cameras, and `Y=A X` for the same parent scene. Six serialized mutations are required to be rejected.
 
-The word “holdout” denotes separation from the original fixtures and producer logic. It is not a statistical test set: no model is trained, no hyperparameter or threshold is selected, and no population distribution is asserted.
+The word “holdout” denotes a frozen fixed-seed design whose inputs are separated from the original fixtures. It does not mean that its generator is implementation-independent, and it is not a statistical test set: no model is trained, no hyperparameter or threshold is selected, and no population distribution is asserted. The independent component is the arithmetic verification path, not the generation path.
 
 ## Special and boundary cases
 

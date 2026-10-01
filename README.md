@@ -23,10 +23,10 @@ python report.py results
 The first command regenerates and verifies:
 
 - 868 structured fixed-scene certificates;
-- 35 targeted base-certificate corruptions;
+- 35 targeted base-certificate corruptions and two observation-domain boundary variants;
 - 729 symmetric-matrix algebra cases, 519 coordinate covariances, 12 kernel-basis congruences, all 168 structured descent bounds, nested-view and repeated-view checks, and rank-deficient width-five witnesses;
 - the 55-row internal bibliography audit and the 55-row live-record audit;
-- a frozen independent rational stress set with 1,600 width-four cases, 40 width-five witnesses, and three stress mutations;
+- a frozen fixed-seed rational stress set with 1,600 width-four cases, 40 width-five witnesses, and six stress mutations;
 - a static audit of 14 Python files.
 
 The second command independently reconciles the serialized counts, exact oracle CSV, plot CSV, Gram-error formula, wrong-affine-covariance counterexample, reference audits, frozen stress set, and static source audit.
@@ -57,7 +57,7 @@ Pytest is only a reviewer convenience; the documented scientific path has no thi
 
 The structured campaign contains all 219 subsets of sizes three through eight from a fixed eight-normal pool. Two are retained outside the normal-span hypothesis. The 217 eligible arrangements crossed with four predetermined scenes produce 868 decisions: 703 recoveries and 165 strict finite failure witnesses.
 
-The separately frozen stress design uses 160 new spanning arrangements and ten new full-rank scenes per arrangement. Its 1,600 cases yield 1,165 recoveries and 435 failures; 40 additional width-five instances retain strict witnesses. These counts test implementation breadth, not a probability distribution or model accuracy.
+The separately frozen input design uses 160 new spanning arrangements and ten new full-rank scenes per arrangement. Its generator reuses the artifact's exact-arithmetic and finite-witness routines, while `src/verify_holdout.py` follows a producer-independent verification path. Its 1,600 cases yield 1,165 recoveries and 435 failures; all 435 failure witnesses are now bound to the parent arrangement by exact width, normal, camera, observation, calibration, and `Y=A X` checks. Forty additional width-five instances retain strict witnesses. These counts test implementation breadth, not a probability distribution or model accuracy.
 
 `results/oracle.csv` contains 49 exact rational values for the analytically solved family. At `u=1`, true energy is 72, optimum energy is `200/3`, and relative squared Frobenius Gram error is `4/129`. The transition at `u=1/3` is proved, not fitted.
 
@@ -65,7 +65,7 @@ The reference package contains exactly 55 body-cited records. The retained live-
 
 ## Observation-only input
 
-`inspect_views.py` accepts centered exact rational coordinates with two rows per view. Integers and rational strings are allowed; floating-point values are rejected. Size limits are 8 MiB, 512 views, 4096 points, and 256 bits per input numerator or denominator. Rank, factorization consistency, metric uniqueness, and positivity are checked. A domain failure is not mislabeled as geometric nonrecovery.
+`inspect_views.py` accepts centered exact rational coordinates with two rows per view. Integers and rational strings are allowed; floating-point values are rejected. Size limits are 8 MiB, 512 views, 4096 points, and 256 bits per input numerator or denominator. Rank, factorization consistency, metric uniqueness, positivity, and exact rank-three span of the recovered raw normal directions are checked before any width-four recovery form is interpreted. A domain failure is not mislabeled as geometric nonrecovery.
 
 The command reports `accepted: true` when the certificate is internally valid even if `scene_recovers_width_four` is false. Acceptance and recovery are distinct fields.
 

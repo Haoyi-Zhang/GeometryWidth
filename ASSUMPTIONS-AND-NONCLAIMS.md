@@ -17,7 +17,7 @@ The paper proves the metric/slack reduction, the width-three baseline, the width
 
 ## What the artifact checks
 
-The artifact checks exact finite instances, certificate serialization, independent recomputation, mutation rejection, the frozen rational stress set, bibliography closure, and source-code invariants. These checks are not a proof of the general theorems and are not an independent human review.
+The artifact checks exact finite instances, certificate serialization, producer-independent arithmetic recomputation, mutation rejection, the frozen rational stress set, bibliography closure, and source-code invariants. The stress generator itself reuses shared exact/producer routines; only its fixed-seed fixtures are separated from the structured campaign. These checks are not a proof of the general theorems and are not an independent human review.
 
 ## Explicit non-claims
 
@@ -36,4 +36,4 @@ The project does not claim:
 
 ## Interpreting “overfitting”
 
-No parameter is learned from the finite campaign, no decision threshold is tuned, and no result is chosen by test-set performance. Conventional statistical overfitting therefore does not apply. A narrower implementation risk remains: code may accidentally depend on the original fixtures. The independently generated frozen stress set and separate verifier are designed to attack that risk. They do not turn the study into an empirical generalization evaluation.
+No parameter is learned from the finite campaign, no decision threshold is tuned, and no result is chosen by test-set performance. Conventional statistical overfitting therefore does not apply. A narrower implementation risk remains: code may accidentally depend on the original fixtures. The disjoint fixed-seed stress inputs and producer-independent verifier are designed to attack that risk; the generator is not a separately implemented algorithm. They do not turn the study into an empirical generalization evaluation.

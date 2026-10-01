@@ -92,7 +92,7 @@
     "minimum_energy": "200/3",
     "gap": "16/3"
   },
-  "wall_seconds": 0.0025052659998436866,
-  "cpu_seconds": 0.0025040619999999736,
-  "peak_rss_kib": 92712
+  "wall_seconds": 0.0025398840000434575,
+  "cpu_seconds": 0.0025389799999999685,
+  "peak_rss_kib": 92716
 }

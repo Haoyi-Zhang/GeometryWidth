@@ -340,6 +340,13 @@ def check_data_only(record):
         need(gram==matrix(record['reference_gram']),'reference geometry comparison')
     normals = matrix(record['raw_null_directions'],rows=len(blocks),cols=3)
     need(all(any(n) and M(a,T([n])) == [[0],[0]] for n,a in zip(normals,blocks)), 'raw normal directions')
+    # The fixed-scene width-four criterion is only valid when the recovered
+    # normal directions span three dimensions. classify_certificate records
+    # lower-rank arrangements as outside the theorem and then returns early;
+    # the observation-only path must not continue from that exclusion into a
+    # recovery-form calculation using an unchecked complete or empty kernel.
+    need(integer_rank(normals) == 3,
+         'data-only domain requires raw normal directions of exact rank three')
     classification=record['width_four_classification']
     classify_certificate(normals,classification)
     cbar=M(M(inverse3(s),M(w,T(w))),inverse3(s))

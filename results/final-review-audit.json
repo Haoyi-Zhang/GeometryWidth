@@ -2,7 +2,7 @@
   "accepted": true,
   "python_source_files": 14,
   "scientific_removable_assert_nodes": 0,
-  "pytest_assert_nodes": 7,
+  "pytest_assert_nodes": 13,
   "dynamic_evaluation_calls": 0,
   "forbidden_network_or_process_imports": 0,
   "private_absolute_paths": 0,

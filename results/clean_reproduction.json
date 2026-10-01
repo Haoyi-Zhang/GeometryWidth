@@ -13,7 +13,7 @@
     "external_refs",
     "pytest"
   ],
-  "date": "2026-09-21",
+  "date": "2026-09-26",
   "deterministic_comparisons": [
     {
       "file": "certificates.json",
@@ -70,11 +70,11 @@
   ],
   "deterministic_files_compared": 13,
   "deterministic_files_identical": 13,
-  "maximum_peak_rss_kib": 155148,
+  "maximum_peak_rss_kib": 169276,
   "maximum_swaps": 0,
   "pytest_is_optional": true,
-  "scope": "local clean-archive reproducibility and byte comparison; not a performance benchmark, proof, or statistical validation",
-  "source": "clean extraction of the candidate standalone ZIP immediately before final documentation inclusion",
-  "summed_wall_seconds": 65.18,
-  "total_cpu_seconds": 68.27
+  "scope": "isolated local reproduction and byte comparison; not a performance benchmark, general proof, or statistical validation",
+  "source": "clean isolated copy of the current artifact immediately before final archive packaging",
+  "summed_wall_seconds": 78.17,
+  "total_cpu_seconds": 82.33
 }

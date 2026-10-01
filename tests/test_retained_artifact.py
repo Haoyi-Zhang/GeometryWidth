@@ -26,12 +26,22 @@ def test_retained_certificate_suite() -> None:
     assert result["accepted"]
     assert result["targeted_mutation_count"] == 35
     assert result["targeted_mutations_rejected"] == 35
+    assert result["data_only_domain_rejection_count"] == 2
+    assert all(row["rejected"] for row in result["data_only_domain_rejections"])
 
 
 def test_retained_holdout_suite() -> None:
     payload = json.loads((ROOT / "results" / "holdout-stress.json").read_text(encoding="utf-8"))
     result = verify(payload)
     assert result["accepted"]
+    assert result["width_four_parent_bound_failures"] == 435
     mutations = mutation_tests(payload)
-    assert len(mutations) == 3
+    assert len(mutations) == 6
     assert all(row["rejected"] for row in mutations)
+    reasons = {row["mutation"]: row["reason"] for row in mutations}
+    assert reasons["drop-synchronized-failure-block"] == (
+        "holdout failure camera/normal/Y block coverage")
+    assert reasons["cross-arrangement-failure-blocks"] == (
+        "holdout failure normals must match parent arrangement")
+    assert reasons["width-five-fixed-scene-witness"] == (
+        "holdout failure width must be exactly four")

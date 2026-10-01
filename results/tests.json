@@ -2,6 +2,58 @@
   "accepted": true,
   "targeted_mutation_count": 35,
   "targeted_mutations_rejected": 35,
+  "data_only_domain_rejection_count": 2,
+  "data_only_domain_rejections": [
+    {
+      "variant": "coplanar-complete-kernel",
+      "rejected": true,
+      "reason": "data-only domain requires raw normal directions of exact rank three"
+    },
+    {
+      "variant": "coplanar-empty-kernel",
+      "rejected": true,
+      "reason": "data-only domain requires raw normal directions of exact rank three"
+    }
+  ],
+  "coplanar_boundary_conflict": {
+    "effective_covariance": [
+      [
+        "4",
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "2",
+        "0"
+      ],
+      [
+        "0",
+        "0",
+        "2"
+      ]
+    ],
+    "apparent_recovery_form": [
+      [
+        "2",
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "4",
+        "0"
+      ],
+      [
+        "0",
+        "0",
+        "0"
+      ]
+    ],
+    "retained_true_energy": "8",
+    "retained_witness_energy": "2014/255",
+    "retained_strict_gap": "26/255"
+  },
   "symmetric_matrix_cases": 729,
   "affine_gauge_cases": 3,
   "coordinate_correlation_cases": 519,
