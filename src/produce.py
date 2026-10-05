@@ -245,6 +245,7 @@ def generate(output=None):
     cap = []
     r = Q(1, 10)
     for p, q in [(0,0), (r,0), (-r,0), (0,r), (0,-r), (r,r)]:
+        p, q = Q(p), Q(q)
         d = 1+p*p+q*q
         cap.append([2*p/d, 2*q/d, (1-p*p-q*q)/d])
     if classify(cap)['classification'] != 'safe_width_four':
