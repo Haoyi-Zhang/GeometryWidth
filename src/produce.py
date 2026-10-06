@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def negative_vector(h):
     """Return a rational v with v' h v < 0, using symmetric elimination."""
+    h = mat(h)
     n = len(h)
     for j in range(n):
         if h[j][j] < 0:
@@ -77,6 +78,7 @@ def negative_case(normals, h, q, case_id, x=None):
 
 def oracle(u):
     """A full primal/dual certificate for each point on the symmetric family."""
+    u = Q(u)
     z0 = mat([[1, 1, -1, -1], [1, -1, 1, -1], [1, -1, -1, 1]])
     j = mat([[1] * 3] * 3)
     x = mul(add(eye(3), scale(j, u)), z0)

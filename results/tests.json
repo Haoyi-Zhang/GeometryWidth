@@ -56,6 +56,7 @@
   },
   "symmetric_matrix_cases": 729,
   "affine_gauge_cases": 3,
+  "integer_arithmetic_cases": 41,
   "coordinate_correlation_cases": 519,
   "coordinate_correlation_recoveries": 483,
   "kernel_basis_congruence_cases": 12,

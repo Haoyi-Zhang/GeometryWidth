@@ -42,4 +42,4 @@ The retained structured evidence also includes:
 - a normal-span-two boundary arrangement;
 - four observation-only fixtures bound in a checked order to the oracle at `u=0`, the oracle at `u=1`, the five-view failure, and the six-view failure fixture.
 
-Completeness and ordering checks prevent repeated legitimate fixtures from impersonating distinct cases. The only floating-point values in the artifact are plot conversions and execution measurements; all verdicts use exact rational arithmetic.
+Completeness and ordering checks prevent repeated legitimate fixtures from impersonating distinct cases. Plot conversions and execution measurements use floating-point calculations. Six legacy fields in the retained cap certificate encode exact unit-normal coordinates as JSON `0.0` or `1.0`; the checkers convert those exact values to fractions, while the current generator writes rational strings. All verdict arithmetic is exact rational arithmetic.

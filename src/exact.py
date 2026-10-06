@@ -49,7 +49,9 @@ def inner(a,b):
 
 
 def rref(a):
-    a=[r[:] for r in a]
+    # Integers are exact rational inputs too: int/int would otherwise introduce
+    # binary floating point during pivot normalization.
+    a=[[Q(x) for x in r] for r in a]
     if not a:
         return a, []
     nr,nc=len(a),len(a[0]); piv=[]; row=0
@@ -110,7 +112,8 @@ def psd(a, strict=False):
     """Exact symmetric elimination; zero PSD pivots require a zero row."""
     if a != trn(a):
         return False
-    a=[r[:] for r in a]; n=len(a)
+    # Keep the Schur complement exact even when callers supply plain integers.
+    a=[[Q(x) for x in r] for r in a]; n=len(a)
     for k in range(n):
         p=a[k][k]
         if p < 0 or (strict and p == 0):
@@ -193,6 +196,8 @@ def encode(x):
 
 def recovery_form(covariance, basis):
     """Matrix of -tr(C adj(sum t_j D_j)); a fixed-covariance width-four test."""
+    covariance = mat(covariance)
+    basis = [mat(d) for d in basis]
     def q(d):
         return -inner(covariance, adj3(d))
     diagonal = [q(d) for d in basis]

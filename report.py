@@ -93,6 +93,7 @@ def audit(directory):
         "targeted_mutations_rejected": 35,
         "data_only_domain_rejection_count": 2,
         "symmetric_matrix_cases": 729,
+        "integer_arithmetic_cases": 41,
         "affine_gauge_cases": 3,
         "coordinate_correlation_cases": 519,
         "coordinate_correlation_recoveries": 483,

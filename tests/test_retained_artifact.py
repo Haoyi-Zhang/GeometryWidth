@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "tests"))
 
 import check
-from test_certificates import run_tests
+from test_certificates import integer_arithmetic_regressions, run_tests
 from verify_holdout import mutation_tests, verify
 
 
@@ -27,7 +27,12 @@ def test_retained_certificate_suite() -> None:
     assert result["targeted_mutation_count"] == 35
     assert result["targeted_mutations_rejected"] == 35
     assert result["data_only_domain_rejection_count"] == 2
+    assert result["integer_arithmetic_cases"] == 41
     assert all(row["rejected"] for row in result["data_only_domain_rejections"])
+
+
+def test_integer_arithmetic_boundary() -> None:
+    assert integer_arithmetic_regressions() == 41
 
 
 def test_retained_holdout_suite() -> None:

@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src'))
 import check
 import exact
+import produce
 
 
 
@@ -94,7 +95,60 @@ def coplanar_data_only_record(payload, include_complete_kernel):
     return exact.encode(record)
 
 
+def integer_arithmetic_regressions():
+    """Plain integer input must not turn exact arithmetic into float arithmetic."""
+    cases = 0
+    for exponent in [1, 2, 8, 52, 53, 60, 120, 256]:
+        n = 2 ** exponent
+        invertible = [[n, n - 1, 0], [n + 1, n, 0], [0, 0, 1]]
+        expected_inverse = [[n, 1 - n, 0], [-n - 1, n, 0], [0, 0, 1]]
+        require(exact.rank(invertible) == check.integer_rank(invertible) == 3,
+                'integer determinant-one matrix lost rank')
+        require(exact.inv(invertible) == expected_inverse == check.inverse3(invertible),
+                'integer determinant-one inverse was rounded')
+        reduced, pivots = exact.rref(invertible)
+        require(reduced == exact.eye(3) and pivots == [0, 1, 2]
+                and all(isinstance(x, F) for row in reduced for x in row),
+                'integer row reduction introduced non-rational arithmetic')
+        cases += 1
+        for matrix, positive, strict in [
+                ([[n, n - 1, 0], [n - 1, n - 2, 0], [0, 0, 1]], False, False),
+                ([[n, n - 1, 0], [n - 1, n, 0], [0, 0, 1]], True, True),
+                ([[n, n, 0], [n, n, 0], [0, 0, 1]], True, False)]:
+            rational = exact.mat(matrix)
+            require(exact.rank(matrix) == exact.rank(rational) == check.integer_rank(matrix),
+                    'integer and rational ranks disagree')
+            require(exact.psd(matrix) == exact.psd(rational) == check.is_psd(matrix) == positive,
+                    'integer and rational semidefinite verdicts disagree')
+            require(exact.psd(matrix, strict=True) == exact.psd(rational, strict=True)
+                    == check.is_psd(matrix, strict=True) == strict,
+                    'integer and rational definite verdicts disagree')
+            if not positive:
+                vector = produce.negative_vector(matrix)
+                require(all(isinstance(x, F) for x in vector)
+                        and check.quadratic(vector, matrix) < 0,
+                        'integer negative-direction construction lost a strict witness')
+            cases += 1
+        covariance = [[2*n+1, n+1, n+1], [n+1, 2*n+1, n+1], [n+1, n+1, 2*n+1]]
+        basis = [exact.sym([0,0,0,1,0,0]), exact.sym([0,0,0,0,1,0]),
+                 exact.sym([0,0,0,0,0,1])]
+        form = exact.recovery_form(covariance, basis)
+        require(form == check.form_from_covariance(covariance, basis)
+                and all(isinstance(x, F) for row in form for x in row),
+                'integer covariance polarization introduced rounding')
+        require(check.quadratic([1,1,1], form) == -3 and not exact.psd(form),
+                'integer covariance just beyond the recovery boundary was rounded safe')
+        vector = produce.negative_vector(form)
+        require(check.quadratic(vector, form) < 0,
+                'integer recovery form lost a strict negative vector')
+        cases += 1
+    check.check_oracle(exact.encode(produce.oracle(1)))
+    cases += 1
+    return cases
+
+
 def run_tests(payload):
+    integer_arithmetic_cases = integer_arithmetic_regressions()
     outcomes = []
     bad_index = next(i for i,r in enumerate(payload['subset_decisions'])
                      if r['classification'] == 'failure_possible_width_four')
@@ -409,6 +463,7 @@ def run_tests(payload):
                 'retained_strict_gap':'26/255',
             },
             'symmetric_matrix_cases':psd_cases, 'affine_gauge_cases':gauge_cases,
+            'integer_arithmetic_cases':integer_arithmetic_cases,
             'coordinate_correlation_cases':correlation_cases,
             'coordinate_correlation_recoveries':correlation_recoveries,
             'kernel_basis_congruence_cases':basis_congruence_cases,

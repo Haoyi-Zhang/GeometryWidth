@@ -24,12 +24,18 @@ The first command regenerates and verifies:
 
 - 868 structured fixed-scene certificates;
 - 35 targeted base-certificate corruptions and two observation-domain boundary variants;
-- 729 symmetric-matrix algebra cases, 519 coordinate covariances, 12 kernel-basis congruences, all 168 structured descent bounds, nested-view and repeated-view checks, and rank-deficient width-five witnesses;
+- 729 symmetric-matrix algebra cases, 41 plain-integer arithmetic regressions, 519 coordinate covariances, 12 kernel-basis congruences, all 168 structured descent bounds, nested-view and repeated-view checks, and rank-deficient width-five witnesses;
 - the 55-row internal bibliography audit and the 55-row live-record audit;
 - a frozen fixed-seed rational stress set with 1,600 width-four cases, 40 width-five witnesses, and six stress mutations;
-- a static audit of 14 Python files.
+- a static audit of the 15 supplied Python files, including the repository-material checker.
 
 The second command independently reconciles the serialized counts, exact oracle CSV, plot CSV, Gram-error formula, wrong-affine-covariance counterexample, reference audits, frozen stress set, and static source audit.
+
+Plain integer inputs are converted to exact fractions before division in row reduction, symmetric elimination, negative-vector construction, recovery-form polarization, and the scalar oracle. The 41 regressions include determinant-one invertible matrices, determinant-minus-one indefinite matrices, definite/semidefinite boundaries, and covariances just beyond the recovery threshold at eight integer scales through `2^256`, plus the integer-input oracle at `u=1`. They are arithmetic checks, not additional scene certificates or corruption counts.
+
+`results/execution.json`, `results/pilot-replay.json`, and `resource_usage.csv` retain historical Linux measurements. They are not timings for a later rerun or for the integer-input extension. Reference-audit checks reconcile the archived records offline; they do not fetch or reread all cited papers.
+
+The flat artifact repository also supplies `.github/workflows/scientific-checks.yml` for Ubuntu 24.04. It runs the finite reproduction, report, pilot, observation-only input and material-integrity gate under one 300-second deadline, with CPU and address-space limits, and uploads raw outputs even when a gate fails. This workflow definition is not evidence of a completed hosted run.
 
 ## Individual checks
 

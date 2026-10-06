@@ -1,0 +1,50 @@
+name: Scientific checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  finite-science:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Bounded whole scientific run from the flat artifact root
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/P077-scientific-checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1
+          export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+          unset PYTHONOPTIMIZE
+          mkdir -p "$OUTPUT_ROOT"
+          export OUTPUT_DIR="$OUTPUT_ROOT/results"
+          ulimit -v 2097152
+          ulimit -t 240
+          timeout --signal=TERM --kill-after=10s 300s bash -euo pipefail -c '
+            python -B .github/scripts/check_repository.py
+            python -B reproduce.py --output "$OUTPUT_DIR"
+            python -B report.py "$OUTPUT_DIR"
+            python -B pilot.py --output "$OUTPUT_ROOT/pilot.json"
+            python -B inspect_views.py inputs/observations.json --output "$OUTPUT_ROOT/observations.json"
+          ' 2>&1 | tee "$OUTPUT_ROOT/whole-run.log"
+      - name: Retain raw scientific outputs on success or failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: P077-scientific-outputs
+          path: ${{ runner.temp }}/P077-scientific-checks
+          if-no-files-found: warn
+          retention-days: 14
