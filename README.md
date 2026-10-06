@@ -35,7 +35,9 @@ Plain integer inputs are converted to exact fractions before division in row red
 
 `results/execution.json`, `results/pilot-replay.json`, and `resource_usage.csv` retain historical Linux measurements. They are not timings for a later rerun or for the integer-input extension. Reference-audit checks reconcile the archived records offline; they do not fetch or reread all cited papers.
 
-The flat artifact repository also supplies `.github/workflows/scientific-checks.yml` for Ubuntu 24.04. It runs the finite reproduction, report, pilot, observation-only input and material-integrity gate under one 300-second deadline, with CPU and address-space limits, and uploads raw outputs even when a gate fails. This workflow definition is not evidence of a completed hosted run.
+The current Ubuntu/CPython 3.12.14 reproduction completed all nine scientific stages, including the 41 integer regressions, in 33.584 wall seconds and 33.575 process CPU seconds, with 62,472 KiB peak RSS. Seven deterministic JSON outputs and both oracle CSVs match retained evidence. Six legacy exact unit-normal floats are emitted as rational strings by the current generator; all other certificate fields agree. Compact current records are in `results/measurements/current-linux/`; historical host records remain unchanged.
+
+The flat artifact repository supplies `.github/workflows/scientific-checks.yml` for Ubuntu 24.04. It runs the reproduction, report, pilot, observation-only input and material-integrity gate under one 300-second deadline, with CPU and address-space limits, and uploads raw outputs even when a gate fails.
 
 ## Individual checks
 

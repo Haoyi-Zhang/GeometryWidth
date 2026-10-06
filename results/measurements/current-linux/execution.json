@@ -1,0 +1,56 @@
+{
+  "completed": true,
+  "workers": 1,
+  "child_processes": 0,
+  "stages": [
+    {
+      "name": "generate",
+      "wall_seconds": 1.0902459849999957,
+      "cpu_seconds": 1.086979884
+    },
+    {
+      "name": "independent-check",
+      "wall_seconds": 1.641617870999994,
+      "cpu_seconds": 1.641511174
+    },
+    {
+      "name": "mutations-and-algebra",
+      "wall_seconds": 22.904876467999998,
+      "cpu_seconds": 22.900300268
+    },
+    {
+      "name": "reference-audit",
+      "wall_seconds": 0.0015024560000256315,
+      "cpu_seconds": 0.001000708999999489
+    },
+    {
+      "name": "external-reference-audit",
+      "wall_seconds": 0.0004593509999892831,
+      "cpu_seconds": 0.0010023520000004282
+    },
+    {
+      "name": "holdout-generate",
+      "wall_seconds": 2.145199152999993,
+      "cpu_seconds": 2.1447823250000013
+    },
+    {
+      "name": "holdout-independent-check",
+      "wall_seconds": 2.5720235629999877,
+      "cpu_seconds": 2.5714662500000003
+    },
+    {
+      "name": "holdout-mutations",
+      "wall_seconds": 3.0735036000000093,
+      "cpu_seconds": 3.0734899820000017
+    },
+    {
+      "name": "static-source-audit",
+      "wall_seconds": 0.12095958000000451,
+      "cpu_seconds": 0.12098198199999644
+    }
+  ],
+  "wall_seconds": 33.58357566800001,
+  "cpu_seconds": 33.574501678,
+  "peak_rss_kib": 62472,
+  "timing_scope": "this reproduction command, not a general proof or performance benchmark"
+}
