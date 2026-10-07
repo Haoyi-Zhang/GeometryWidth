@@ -116,9 +116,13 @@ def data_only(y):
     """Exact affine factorization and the classical metric upgrade from Y only."""
     if not y or len(y)%2 or any(len(r)!=len(y[0]) for r in y):
         raise ValueError('Y must have equally sized rows in two-row view blocks')
-    if any(sum(r)!=0 for r in y) or rank(y)!=3:
+    if any(sum(r)!=0 for r in y):
         raise ValueError('Y must be centered and have exact rank three')
-    cols = rref(y)[1][:3]
+    # Complete elimination still rejects a fourth pivot, including a late one.
+    pivots = rref(y)[1]
+    if len(pivots) != 3:
+        raise ValueError('Y must be centered and have exact rank three')
+    cols = pivots[:3]
     f = [[row[j] for j in cols] for row in y]
     rows = rref(trn(f))[1][:3]
     w = mul(inv([f[i] for i in rows]), [y[i] for i in rows])
@@ -139,14 +143,16 @@ def data_only(y):
     classification = classify(raw_normals)
     if classification['classification']=='outside_linear_span_assumption':
         raise ValueError('normal directions must span three dimensions for the width-four test')
-    cbar = mul(mul(inv(s0), mul(w, trn(w))), inv(s0))
+    s0_inverse = inv(s0)
+    wwt = mul(w, trn(w))
+    cbar = mul(mul(s0_inverse, wwt), s0_inverse)
     form = recovery_form(cbar, classification['kernel_basis'])
     fixed_safe = not form or psd(form)
     result = {'effective_covariance': cbar, 'recovery_form': form,
               'scene_recovers_width_four': fixed_safe,
               'Y': y, 'selected_columns': cols, 'selected_rows': rows,
               'F': f, 'W': w, 'baseline_metric': s0,
-              'recovered_gram': mul(mul(trn(w), inv(s0)), w),
+              'recovered_gram': mul(mul(trn(w), s0_inverse), w),
               'raw_null_directions': raw_normals,
               'width_four_classification': classification}
     if not fixed_safe:
@@ -159,8 +165,7 @@ def data_only(y):
         if inner(cbar, h) >= 0:
             raise ArithmeticError('observation-only direction is not a strict descent direction')
         blocks = [f[i:i + 2] for i in range(0, len(f), 2)]
-        wwt = mul(w, trn(w))
-        true_energy = trace(mul(wwt, inv(s0)))
+        true_energy = trace(mul(wwt, s0_inverse))
         t = Q(1)
         while True:
             metric = sub(s0, scale(h, t))

@@ -27,7 +27,7 @@ The first command regenerates and verifies:
 - 729 symmetric-matrix algebra cases, 41 plain-integer arithmetic regressions, 519 coordinate covariances, 12 kernel-basis congruences, all 168 structured descent bounds, nested-view and repeated-view checks, and rank-deficient width-five witnesses;
 - the 55-row internal bibliography audit and the 55-row live-record audit;
 - a frozen fixed-seed rational stress set with 1,600 width-four cases, 40 width-five witnesses, and six stress mutations;
-- a static audit of the 15 supplied Python files, including the repository-material checker.
+- a static audit of the supplied Python files, including the repository-material checker. The retained historical audit covered 15 files; the supplementary regression below is also scanned by a fresh audit.
 
 The second command independently reconciles the serialized counts, exact oracle CSV, plot CSV, Gram-error formula, wrong-affine-covariance counterexample, reference audits, frozen stress set, and static source audit.
 
@@ -49,6 +49,7 @@ python inspect_views.py inputs/observations.json \
   --output results/observations-audit.json
 python src/verify_holdout.py results/holdout-stress.json --mutation-test
 python src/reviewer_audit.py .
+python -B tests/regression_data_only.py
 python check_references.py
 python check_reference_external.py
 ```
@@ -60,6 +61,8 @@ pytest -q tests/test_retained_artifact.py
 ```
 
 Pytest is only a reviewer convenience; the documented scientific path has no third-party Python dependency.
+
+The three supplementary observation-only regressions are explicitly run in scientific CI, outside the frozen corruption/algebra census. They check literal rational scenes, the semidefinite recovery boundary, full retained data-only certificates, a late fourth pivot, checker corruptions, and local arithmetic reuse. `produce.data_only` retains complete elimination and reuses its validated baseline inverse and `W W^T` within one call. The independent checker and finite-witness search are unchanged. These are correctness/work-reuse checks, not measured speedups or a new scene-recovery guarantee; historical results are not rewritten.
 
 ## Evidence retained
 
