@@ -1,6 +1,6 @@
 # View-consistency identifiability
 
-Exact rational certificates for minimum-code-norm orthographic multiview learning. This is a finite synthetic theory artifact: it does not train a neural model, consume images, or report statistical accuracy. General statements are proved mathematically; the executable material checks exact finite consequences and certificate integrity.
+Exact rational certificates for minimum-code-norm orthographic multiview learning. The executable material evaluates finite synthetic instances of the paper's geometric recovery criteria and checks certificate integrity.
 
 ## Model and result
 
@@ -27,7 +27,7 @@ The first command regenerates and verifies:
 - 729 symmetric-matrix algebra cases, 41 plain-integer arithmetic regressions, 519 coordinate covariances, 12 kernel-basis congruences, all 168 structured descent bounds, nested-view and repeated-view checks, and rank-deficient width-five witnesses;
 - the 55-row internal bibliography audit and the 55-row live-record audit;
 - a frozen fixed-seed rational stress set with 1,600 width-four cases, 40 width-five witnesses, and six stress mutations;
-- a static audit of the supplied Python files, including the repository-material checker. The retained historical audit covered 15 files; the supplementary regression below is also scanned by a fresh audit.
+- a static audit of the supplied Python files, including the repository-material checker and supplementary regression.
 
 The second command independently reconciles the serialized counts, exact oracle CSV, plot CSV, Gram-error formula, wrong-affine-covariance counterexample, reference audits, frozen stress set, and static source audit.
 
@@ -72,7 +72,7 @@ The separately frozen input design uses 160 new spanning arrangements and ten ne
 
 `results/oracle.csv` contains 49 exact rational values for the analytically solved family. At `u=1`, true energy is 72, optimum energy is `200/3`, and relative squared Frobenius Gram error is `4/129`. The transition at `u=1/3` is proved, not fitted.
 
-The reference package contains exactly 55 body-cited records. The retained live-record audit classifies 52 as peer-reviewed papers or a scholarly book and three as preprint-only. It documents three metadata corrections. This is not an exhaustive novelty or priority review.
+The reference package contains 55 body-cited records: 52 peer-reviewed papers or a scholarly book and three preprints. The reference tables give their publication records and reading depth.
 
 ## Observation-only input
 
@@ -80,10 +80,12 @@ The reference package contains exactly 55 body-cited records. The retained live-
 
 The command reports `accepted: true` when the certificate is internally valid even if `scene_recovers_width_four` is false. Acceptance and recovery are distinct fields.
 
-## Independence and limitations
+## Implementation and scope
 
-The main checker, frozen-stress verifier, and report do not import the producer. The main checker uses separate integer elimination, cofactor determinant, and principal-minor paths. This is implementation separation, not independent human review or formal theorem verification.
+The main checker, frozen-stress verifier, and report do not import the producer. The main checker uses separate integer elimination, cofactor determinant, and principal-minor paths. The general theorem arguments are in the manuscript and `proofs/core.md`.
 
 There are no trained parameters, tuned thresholds, or train/test accuracy claims. Conventional statistical overfitting therefore does not apply. The frozen stress set addresses fixture-specific implementation risk only. The project does not establish missing-view, perspective-camera, arbitrary image-noise, neural-optimization, unseen-sample, real-image, semantic, or deployment performance.
 
-The admitted geometry and deployment limitations are summarized above; exact licensing conditions are described in `LICENSE`.
+## License
+
+Original code is available under the MIT license in `LICENSE`. Cited articles are not redistributed. The separate paper package's JMLR style retains its upstream license.

@@ -1,4 +1,4 @@
-# Assumptions and non-claims
+# Model assumptions and scope
 
 ## Mathematical assumptions
 
@@ -17,7 +17,7 @@ The paper proves the metric/slack reduction, the width-three baseline, the width
 
 ## What the artifact checks
 
-The artifact checks exact finite instances, certificate serialization, producer-independent arithmetic recomputation, mutation rejection, the frozen rational stress set, bibliography closure, and source-code invariants. The stress generator itself reuses shared exact/producer routines; only its fixed-seed fixtures are separated from the structured campaign. These checks are not a proof of the general theorems and are not an independent human review.
+The artifact checks exact finite instances, certificate serialization, producer-independent arithmetic recomputation, mutation rejection, the frozen rational stress set, bibliography closure, and source-code invariants. The stress generator reuses shared exact/producer routines with fixed-seed fixtures separated from the structured campaign. The general theorem arguments are supplied in the manuscript and `proofs/core.md`.
 
 ## Explicit non-claims
 
@@ -30,9 +30,7 @@ The project does not claim:
 - neural-encoder, vision-language-model, semantic, real-image, deployment, or runtime performance;
 - population generalization or a statistical accuracy estimate;
 - that 1,600 frozen cases are representative of a camera distribution;
-- formal proof-assistant verification, exhaustive fuzzing, or security certification;
-- an exhaustive novelty search or priority determination;
-- acceptance by JMLR or any other venue.
+- formal proof-assistant verification, exhaustive fuzzing, or security certification.
 
 ## Interpreting “overfitting”
 
