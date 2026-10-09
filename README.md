@@ -86,8 +86,4 @@ The main checker, frozen-stress verifier, and report do not import the producer.
 
 There are no trained parameters, tuned thresholds, or train/test accuracy claims. Conventional statistical overfitting therefore does not apply. The frozen stress set addresses fixture-specific implementation risk only. The project does not establish missing-view, perspective-camera, arbitrary image-noise, neural-optimization, unseen-sample, real-image, semantic, or deployment performance.
 
-See `ASSUMPTIONS-AND-NONCLAIMS.md`, `REVIEWER-RISK-REGISTER.md`, `FINAL-BLIND-REVIEW.md`, and `FINAL-ARTIFACT-AUDIT.md` for the final boundaries and audit record.
-
-## Release status
-
-The archive is for internal evaluation. Public release, license choice, authorship/contribution confirmation, repository upload, and venue-required declarations remain human decisions. No submission or upload has been performed.
+The admitted geometry and deployment limitations are summarized above; exact licensing conditions are described in `LICENSE`.
