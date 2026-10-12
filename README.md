@@ -89,3 +89,18 @@ There are no trained parameters, tuned thresholds, or train/test accuracy claims
 ## License
 
 Original code is available under the MIT license in `LICENSE`. Cited articles are not redistributed. The separate paper package's JMLR style retains its upstream license.
+
+## Optional vector figures
+
+From the standalone artifact root, install the renderer dependencies if needed
+and generate the PDF figures:
+
+```sh
+python -m pip install "matplotlib==3.10.7"
+python -B scripts/plot_figures.py
+```
+
+Computer Modern is supplied by Matplotlib; rendering does not require TeX.
+
+This optional rendering step is separate from the scientific reproduction
+commands and works without a sibling paper directory.
