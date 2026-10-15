@@ -12,15 +12,15 @@ The observation-only path uses only exact two-dimensional coordinates. A negativ
 
 ## Primary reproduction
 
-Use Python 3.10 or later on Linux, without `-O` and without `PYTHONOPTIMIZE`. Only the standard library is required.
+Use Python 3.10 or later on Linux, without `-O` and without `PYTHONOPTIMIZE`. Only the standard library is required. From the repository root, choose a fresh output directory outside the retained `results/` tree:
 
 ```sh
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
-  python reproduce.py --output results
-python report.py results
+  python reproduce.py --output /tmp/geometrywidth-reproduction
+python report.py /tmp/geometrywidth-reproduction
 ```
 
-The first command regenerates and verifies:
+The runner creates the output directory but does not reject an existing one; use a new path for each run to avoid mixing evidence. Omitting `--output` writes into bundled `results/` and replaces its generated records, including historical timing files. The first command regenerates and verifies:
 
 - 868 structured fixed-scene certificates;
 - 35 targeted base-certificate corruptions and two observation-domain boundary variants;
@@ -44,9 +44,9 @@ The flat artifact repository supplies `.github/workflows/scientific-checks.yml` 
 ```sh
 python src/check.py results/certificates.json
 python tests/test_certificates.py results/certificates.json
-python pilot.py --output results/pilot-replay.json
+python pilot.py --output /tmp/geometrywidth-pilot.json
 python inspect_views.py inputs/observations.json \
-  --output results/observations-audit.json
+  --output /tmp/geometrywidth-observations.json
 python src/verify_holdout.py results/holdout-stress.json --mutation-test
 python src/reviewer_audit.py .
 python -B tests/regression_data_only.py
