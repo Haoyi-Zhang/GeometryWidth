@@ -41,6 +41,10 @@ jobs:
             python -B pilot.py --output "$OUTPUT_ROOT/pilot.json"
             python -B inspect_views.py inputs/observations.json --output "$OUTPUT_ROOT/observations.json"
           ' 2>&1 | tee "$OUTPUT_ROOT/whole-run.log"
+      - name: Check direct Python calibration diagram
+        run: |
+          python -m pip install "matplotlib==3.10.7"
+          python -B figures/draw_diagram.py --check
       - name: Retain raw scientific outputs on success or failure
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

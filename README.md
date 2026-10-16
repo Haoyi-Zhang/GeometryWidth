@@ -98,6 +98,8 @@ and generate the PDF figures:
 ```sh
 python -m pip install "matplotlib==3.10.7"
 python -B scripts/plot_figures.py
+python -B figures/draw_diagram.py
+python -B figures/draw_diagram.py --check
 ```
 
 Computer Modern is supplied by Matplotlib; rendering does not require TeX.
