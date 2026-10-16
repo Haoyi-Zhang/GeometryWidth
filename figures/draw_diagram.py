@@ -86,8 +86,10 @@ def slack(out):
     z=((F(5,3),0,0),(0,1,0),(0,0,1),(0,0,0))
     product=lambda a,b:tuple(tuple(sum(x*y for x,y in zip(row,col))
                              for col in zip(*b)) for row in a)
-    assert product(b,tuple(zip(*b)))==((1,0),(0,1))
-    assert product(b,z)==((1,0,0),(0,1,0))
+    if product(b,tuple(zip(*b)))!=((1,0),(0,1)):
+        raise ValueError('Decoder rows must be orthonormal.')
+    if product(b,z)!=((1,0,0),(0,1,0)):
+        raise ValueError('Realization must reproject exactly.')
     d=Drawing((-1.9,-2.15,9.85,1.0))
     d.box('z',0,0,3.25,1.15,
           r'$Z=[(S^{-1/2}X)^T\;\;0]^T$'+'\nrank-three codes')
@@ -113,8 +115,8 @@ def main():
     if a.check:
         with tempfile.TemporaryDirectory() as t:
             x,y=Path(t)/'a',Path(t)/'b';generate(x);generate(y)
-            assert (x/'slack.pdf').read_bytes()==(y/'slack.pdf').read_bytes()
+            if (x/'slack.pdf').read_bytes()!=(y/'slack.pdf').read_bytes():
+                raise ValueError('Fresh vector redraws differ.')
         print('Calibration and exact reprojection identities and fresh redraw passed.')
     else:generate(a.output_dir)
 if __name__=='__main__':main()
-
