@@ -20,7 +20,7 @@ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
 python report.py /tmp/geometrywidth-reproduction
 ```
 
-The runner creates the output directory but does not reject an existing one; use a new path for each run to avoid mixing evidence. Omitting `--output` writes into bundled `results/` and replaces its generated records, including historical timing files. The first command regenerates and verifies:
+The runner requires `--output` and creates a new directory outside the artifact. It refuses existing directories, symbolic links and paths inside the repository before running any scientific stage. Choose a different path for each run; bundled results and historical measurements are not overwritten. The first command regenerates and verifies:
 
 - 868 structured fixed-scene certificates;
 - 35 targeted base-certificate corruptions and two observation-domain boundary variants;
@@ -50,6 +50,7 @@ python inspect_views.py inputs/observations.json \
 python src/verify_holdout.py results/holdout-stress.json --mutation-test
 python src/reviewer_audit.py .
 python -B tests/regression_data_only.py
+python -B tests/test_output_directory.py
 python check_references.py
 python check_reference_external.py
 ```
@@ -62,7 +63,7 @@ pytest -q tests/test_retained_artifact.py
 
 Pytest is only a reviewer convenience; the documented scientific path has no third-party Python dependency.
 
-The three supplementary observation-only regressions are explicitly run in scientific CI, outside the frozen corruption/algebra census. They check literal rational scenes, the semidefinite recovery boundary, full retained data-only certificates, a late fourth pivot, checker corruptions, and local arithmetic reuse. `produce.data_only` retains complete elimination and reuses its validated baseline inverse and `W W^T` within one call. The independent checker and finite-witness search are unchanged. These are correctness/work-reuse checks, not measured speedups or a new scene-recovery guarantee; historical results are not rewritten.
+The three supplementary observation-only regressions are explicitly run in scientific CI, outside the frozen corruption/algebra census. They check literal rational scenes, the semidefinite recovery boundary, full retained data-only certificates, a late fourth pivot, checker corruptions, and local arithmetic reuse. `produce.data_only` retains complete elimination and reuses its validated baseline inverse and `W W^T` within one call. The independent checker and finite-witness search are unchanged. Output-directory regressions separately check fresh-path reservation, missing arguments, existing outputs, repository protection and symbolic-link aliases. These controls do not enlarge the scene or corruption census; historical results are not rewritten.
 
 ## Evidence retained
 

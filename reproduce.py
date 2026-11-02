@@ -23,11 +23,31 @@ from verify_holdout import verify as verify_holdout, mutation_tests as holdout_m
 from reviewer_audit import audit as reviewer_audit
 
 
+def reserve_output_directory(path):
+    """Reserve a new external destination without replacing retained evidence."""
+    destination = path.resolve()
+    if destination == ROOT or ROOT in destination.parents:
+        raise ValueError('Output must be outside the artifact repository; retained evidence is read-only.')
+    # exist_ok=False also closes the check/create race for concurrent runs.
+    # Explicitly reject broken symlinks rather than following a new target.
+    if path.is_symlink():
+        raise ValueError('Output must be a new directory, not a symbolic link.')
+    try:
+        destination.mkdir(parents=True, exist_ok=False)
+    except FileExistsError as exc:
+        raise ValueError('Output already exists; choose a new directory to keep runs separate.') from exc
+    return destination
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output',type=Path,default=ROOT/'results')
+    parser.add_argument('--output',type=Path,required=True,
+                        help='New output directory outside this artifact; existing paths are refused.')
     args = parser.parse_args()
-    args.output.mkdir(parents=True,exist_ok=True)
+    try:
+        args.output = reserve_output_directory(args.output)
+    except ValueError as exc:
+        parser.error(str(exc))
     start = time.perf_counter()
     cpu = time.process_time()
     stages = []

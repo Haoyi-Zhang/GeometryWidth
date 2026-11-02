@@ -36,6 +36,7 @@ jobs:
           timeout --signal=TERM --kill-after=10s 300s bash -euo pipefail -c '
             python -B .github/scripts/check_repository.py
             python -B tests/regression_data_only.py
+            python -B tests/test_output_directory.py
             python -B reproduce.py --output "$OUTPUT_DIR"
             python -B report.py "$OUTPUT_DIR"
             python -B pilot.py --output "$OUTPUT_ROOT/pilot.json"
